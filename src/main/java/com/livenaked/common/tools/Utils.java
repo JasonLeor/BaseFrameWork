@@ -366,4 +366,12 @@ public class Utils {
         return md5Encoding(sb.toString());
     }
 
+    /**
+     * 生成UUID
+     *
+     * @return uuid
+     */
+    public static String generateUUID() {
+        return UUID.randomUUID().toString();
+    }
 }

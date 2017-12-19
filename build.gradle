@@ -14,7 +14,7 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'bula'
+    baseName = 'frameWork'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 }

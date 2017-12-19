@@ -5,6 +5,7 @@ import com.livenaked.common.http.converter.StringConvert;
 import com.livenaked.common.http.converter.XmlConverter;
 import com.livenaked.common.http.intercept.SignCheckInterceptor;
 import com.livenaked.common.http.intercept.TimeOutCheckInterceptor;
+import com.livenaked.common.http.intercept.TraceInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,8 @@ public class RequestHandler extends WebMvcConfigurerAdapter {
     private XmlConverter xmlConverter;
     @Autowired
     private StringConvert stringConvert;
+    @Autowired
+    private TraceInterceptor traceInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -37,6 +40,8 @@ public class RequestHandler extends WebMvcConfigurerAdapter {
         registry.addInterceptor(timeOutCheckInterceptor).addPathPatterns("/*");
         // 签名校验
         registry.addInterceptor(signTrueInterceptor).addPathPatterns("/*");
+        // 日志追踪
+        registry.addInterceptor(traceInterceptor).addPathPatterns("/**");
     }
 
     @Override
