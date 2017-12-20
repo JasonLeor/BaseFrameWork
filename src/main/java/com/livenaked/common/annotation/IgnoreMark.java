@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * API 标记
  */
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited

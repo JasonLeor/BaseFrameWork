@@ -12,11 +12,11 @@ appender('CONSOLE_STDOUT', ConsoleAppender) {
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"
     }
-    filter(LevelFilter) {
-        level = DEBUG
-        onMatch = FilterReply.ACCEPT
-        onMismatch = FilterReply.DENY
-    }
+//    filter(LevelFilter) {
+//        level = DEBUG
+//        onMatch = FilterReply.ACCEPT
+//        onMismatch = FilterReply.DENY
+//    }
 }
 
 // 错误日志
@@ -43,5 +43,5 @@ appender('ERROR_FILE', RollingFileAppender) {
 root(INFO, ['ERROR_FILE'])
 //测试环境 打印 debug
 if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.TEST)) {
-    root(DEBUG, ['CONSOLE_STDOUT'])
+    root(INFO, ['CONSOLE_STDOUT'])
 }

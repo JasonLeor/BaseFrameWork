@@ -3,6 +3,8 @@ package com.livenaked.common;
 
 import com.livenaked.common.annotation.IgnoreMark;
 
+import java.lang.annotation.Annotation;
+
 /**
  * 参数
  */
@@ -18,5 +20,5 @@ public class Constants {
     /**
      * response忽略处理标记
      */
-    public static final Class<?> IGNORE_MARK_ANNOTATION = IgnoreMark.class;
+    public static final Class<? extends Annotation> IGNORE_MARK_ANNOTATION = IgnoreMark.class;
 }

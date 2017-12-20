@@ -20,9 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice
 public class ResponseHandler implements ResponseBodyAdvice<Object> {
     @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        Class returnTypeClazz = returnType.getMethod().getReturnType();
-        if (returnTypeClazz.isAnnotationPresent(Constants.IGNORE_MARK_ANNOTATION)) {
+    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> converterType) {
+        if (methodParameter.getMethod().isAnnotationPresent(Constants.IGNORE_MARK_ANNOTATION)) {
             return false;
         } else {
             return true;
@@ -34,12 +33,12 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
         if (!(body instanceof Response)) {
             Response res = new Response(ResponseCode.SUCCESS);
             res.setData(body);
-            res.setTraceId(MDC.get(Constants.LOG_TRACE_PK_KEY));
             return res;
         }
         //清空MDC
         MDC.clear();
         return body;
     }
+
 
 }

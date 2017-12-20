@@ -19,8 +19,10 @@ public class CMSActivityController {
     @Autowired
     private UserServiceIntf userDao;
 
+    //    @IgnoreMark
     @RequestMapping(value = "test")
-    public SimpleEntity test() throws Exception {
+    public SimpleEntity test() {
+
         logger.trace("111", "12");
         logger.info("222", "12");
         logger.error("333", "12");
@@ -29,6 +31,7 @@ public class CMSActivityController {
         PUser one = userDao.findById((long) 1588);
         PUser one2 = userDao.findById((long) 1588);
         SimpleEntity simpleEntity = new SimpleEntity();
-        return new SimpleEntity("111");
+//        return new SimpleEntity("111");
+        throw new NullPointerException();
     }
 }
