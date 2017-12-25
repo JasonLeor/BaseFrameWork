@@ -6,7 +6,9 @@ public enum ResponseCode {
     SYSTEM_ERROR(-100, "系统异常"),
     SIGN_INVALID(-101, "签名错误"),
     SERVICE_ERROR(-200, "业务异常"),
-    PARAMETER_MISSING(-300, "参数缺失"),
+    PERMISSION_ERROR(-201, "权限不足"),
+    LOGIN_TIMEOUT(-202, "登录超时"),
+    PARAMETER_ERROR(-300, "参数缺失"),
     THRID_FAIL(-400, "第三方操作失败"),
     NOT_FOUND(-500, "NOT FOUND");
     private int code;

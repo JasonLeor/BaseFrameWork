@@ -1,8 +1,22 @@
 package com.livenaked.service.intf;
 
-import com.livenaked.common.core.BaseServiceIntf;
 import com.livenaked.model.PUser;
 
-public interface UserServiceIntf extends BaseServiceIntf<PUser, Long> {
+public interface UserServiceIntf {
+    /**
+     * 检查 登录状态
+     *
+     * @param token 授权标识
+     */
+    boolean checkLoginStatus(String token);
 
+    /**
+     * 获取 用户
+     */
+    PUser getUser(String token);
+
+    /**
+     * 获取当前登录 的 用户
+     */
+    PUser getCurrentLoginUser();
 }

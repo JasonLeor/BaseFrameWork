@@ -1,11 +1,7 @@
 package com.livenaked.controller;
 
-import com.livenaked.entity.SimpleEntity;
-import com.livenaked.model.PUser;
-import com.livenaked.service.intf.UserServiceIntf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,22 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cms/activity")
 public class CMSActivityController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private UserServiceIntf userDao;
 
-    //    @IgnoreMark
     @RequestMapping(value = "test")
-    public SimpleEntity test() {
+    public String test() {
 
-        logger.trace("111", "12");
-        logger.info("222", "12");
-        logger.error("333", "12");
-        logger.debug("444", "12");
-        logger.warn("555", "12");
-        PUser one = userDao.findById((long) 1588);
-        PUser one2 = userDao.findById((long) 1588);
-        SimpleEntity simpleEntity = new SimpleEntity();
-//        return new SimpleEntity("111");
-        throw new NullPointerException();
+        return "3";
+    }
+
+    @RequestMapping(value = "user/test")
+    public String Usertest() {
+
+        return "1";
+    }
+
+    @RequestMapping(value = "teacher/test")
+    public String te() {
+
+        return "2";
     }
 }

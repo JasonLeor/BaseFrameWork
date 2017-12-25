@@ -41,4 +41,10 @@ public class PUser extends BaseModel implements Serializable {
     @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
 
+    public PUser(Long userId) {
+        this.userId = userId;
+    }
+
+    public PUser() {
+    }
 }

@@ -12,22 +12,22 @@ appender('CONSOLE_STDOUT', ConsoleAppender) {
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"
     }
-//    filter(LevelFilter) {
-//        level = DEBUG
-//        onMatch = FilterReply.ACCEPT
-//        onMismatch = FilterReply.DENY
-//    }
+    filter(LevelFilter) {
+        level = DEBUG
+        onMatch = FilterReply.ACCEPT
+        onMismatch = FilterReply.DENY
+    }
 }
 
 // 错误日志
 appender('ERROR_FILE', RollingFileAppender) {
     rollingPolicy(TimeBasedRollingPolicy) {
         if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.PRODUCTION)) {
-            fileNamePattern = PROD_LOG_HOME + "/error.logFile.%d{yyyy-MM-dd}.log.gz"
+            fileNamePattern = PROD_LOG_HOME + "/error/error.logFile.%d{yyyy-MM-dd}.log.gz"
         } else if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.DEVELOPMENT)) {
-            fileNamePattern = DEV_LOG_HOME + "/dev.error.logFile.%d{yyyy-MM-dd}.log.gz"
+            fileNamePattern = DEV_LOG_HOME + "/error/dev.error.logFile.%d{yyyy-MM-dd}.log.gz"
         } else if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.TEST)) {
-            fileNamePattern = LOCAL_LOG_HOME + "/error.frameWork.%d{yyyy-MM-dd}.log"
+            fileNamePattern = LOCAL_LOG_HOME + "/error/error.frameWork.%d{yyyy-MM-dd}.log"
         }
         maxHistory = 7
     }
@@ -40,8 +40,26 @@ appender('ERROR_FILE', RollingFileAppender) {
         pattern = "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %X{${Constants.LOG_TRACE_PK_KEY}} - %msg%n"
     }
 }
+appender('INFO_FILE', RollingFileAppender) {
+    rollingPolicy(TimeBasedRollingPolicy) {
+        if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.PRODUCTION)) {
+            fileNamePattern = PROD_LOG_HOME + "/info/info.logFile.%d{yyyy-MM-dd}.log.gz"
+        } else if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.DEVELOPMENT)) {
+            fileNamePattern = DEV_LOG_HOME + "/info/dev.info.logFile.%d{yyyy-MM-dd}.log.gz"
+        } else if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.TEST)) {
+            fileNamePattern = LOCAL_LOG_HOME + "/info/info.frameWork.%d{yyyy-MM-dd}.log"
+        }
+        maxHistory = 7
+    }
+    encoder(PatternLayoutEncoder) {
+        pattern = "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %X{${Constants.LOG_TRACE_PK_KEY}} - %msg%n"
+    }
+}
+
 root(INFO, ['ERROR_FILE'])
+
 //测试环境 打印 debug
 if (EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.TEST)) {
     root(INFO, ['CONSOLE_STDOUT'])
 }
+root(INFO, ['INFO_FILE'])

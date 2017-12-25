@@ -1,5 +1,7 @@
 package com.livenaked.common.http.intercept;
 
+import com.livenaked.common.ResponseCode;
+import com.livenaked.common.exception.ServiceException;
 import com.livenaked.common.tools.Utils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,21 +20,22 @@ public class TimeOutCheckInterceptor implements HandlerInterceptor {
 
     private static final TimeUnit UNIT = TimeUnit.SECONDS;
 
+    private static final String TIMEOUT_PARAM_FIELD = "timestamp";
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         Long requestTime;
         try {
-            requestTime = Long.valueOf(request.getParameter("timestamp"));
+            requestTime = Long.valueOf(request.getParameter(TIMEOUT_PARAM_FIELD));
         } catch (Exception e) {
-//            throw new SystemException(ResponseCode.PARAMETER_MISSING);
-            return false;
+            throw new ServiceException(ResponseCode.PARAMETER_ERROR);
         }
 
         Long serverTime = Utils.getTimestamp(UNIT);
 
         boolean isTimeout = Math.abs(serverTime - requestTime) > LIMIT;
         if (isTimeout) {
-//            throw new ServiceException(ResponseCode.REQUEST_TIME_OUT);
+            throw new ServiceException(ResponseCode.REQUEST_TIME_OUT);
         }
 
         return true;

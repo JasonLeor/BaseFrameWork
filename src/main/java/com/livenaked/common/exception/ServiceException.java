@@ -20,4 +20,14 @@ public class ServiceException extends GlobalException {
         super.setCode(ResponseCode.SERVICE_ERROR.getCode());
         super.setMsg(msg);
     }
+
+    public ServiceException(ResponseCode serviceError, String msg) {
+        super.setCode(serviceError.getCode());
+        super.setMsg(msg);
+    }
+
+    public ServiceException(ResponseCode serviceError) {
+        super.setCode(serviceError.getCode());
+        super.setMsg(serviceError.getMsg());
+    }
 }

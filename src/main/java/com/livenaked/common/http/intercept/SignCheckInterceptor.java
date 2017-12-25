@@ -1,5 +1,7 @@
 package com.livenaked.common.http.intercept;
 
+import com.livenaked.common.ResponseCode;
+import com.livenaked.common.exception.ServiceException;
 import com.livenaked.common.tools.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,21 +17,26 @@ import java.util.Map;
 
 /**
  * 签名验证插件
+ * <p>
+ * 若用户已登录 取用户 secretKey 做 签名验证
+ * 若用户未登录 则不加 secretKey 做 签名验证
  */
 @Component
 public class SignCheckInterceptor implements HandlerInterceptor {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final String SIGN_PARAM_FIELD = "sign";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //check sign
-        String clientSign = request.getParameter("sign");
-        Map params = getParams(request);
+        String clientSign = request.getParameter(SIGN_PARAM_FIELD);
+        if (Utils.isEmpty(clientSign)) {
+            throw new ServiceException(ResponseCode.PARAMETER_ERROR);
+        }
+        Map<String, String> params = getParams(request);
         String serverSign = Utils.generateSign(params, "");
-        logger.info(serverSign + "====" + clientSign);
-        logger.info(params.toString());
         if (!serverSign.equals(clientSign)) {
-//            throw new ServiceException(ResponseCode.SIGN_INVALID);
+            throw new ServiceException(ResponseCode.SIGN_INVALID);
         }
         return true;
     }
@@ -42,9 +49,9 @@ public class SignCheckInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
     }
 
-    private Map getParams(HttpServletRequest request) {
+    private Map<String, String> getParams(HttpServletRequest request) {
         Enumeration<String> parameterNames = request.getParameterNames();
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<>();
         while (parameterNames.hasMoreElements()) {
             String name = parameterNames.nextElement();
             if (!"sign".equals(name)) {

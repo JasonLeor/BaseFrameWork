@@ -19,4 +19,14 @@ public class SystemException extends GlobalException {
         super.setCode(ResponseCode.SYSTEM_ERROR.getCode());
         super.setMsg(msg);
     }
+
+    public SystemException(ResponseCode responseCode) {
+        this.setCode(responseCode.getCode());
+        this.setMsg(responseCode.getMsg());
+    }
+
+    public SystemException(ResponseCode responseCode, String message) {
+        this.setCode(responseCode.getCode());
+        this.setMsg(message);
+    }
 }

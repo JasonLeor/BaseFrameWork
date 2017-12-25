@@ -374,4 +374,12 @@ public class Utils {
     public static String generateUUID() {
         return UUID.randomUUID().toString();
     }
+
+    public static boolean isEmptyByCollection(Collection collection) {
+        return (collection == null || collection.size() <= 0);
+    }
+
+    public static boolean isEmpty(String string) {
+        return (string == null || "".equals(string));
+    }
 }
