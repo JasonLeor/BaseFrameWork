@@ -42,14 +42,7 @@ public class FunctionInterceptor implements HandlerInterceptor {
         PFunction function = functionService.findFunction(route);
         if (function != null) {
             // 检查 功能状态
-            switch (FunctionStatusEnum.getByValue(function.getStatus())) {
-                case DISABLED:
-                    throw new SystemException(ResponseCode.SYSTEM_ERROR, "该功能已被禁用");
-                case ENABLED:
-                    break;
-                case MAINTAINED:
-                    throw new SystemException(ResponseCode.SYSTEM_ERROR, "该功能正在维护中,请稍后再试");
-            }
+            checkFunctionStatus(function);
             // 根据级别 进行过滤 PUBLIC | PRIVATE | DESIGNATED
             switch (FunctionLevelEnum.valueOf(function.getLevel())) {
                 case PUBLIC: // 开放功能
@@ -78,5 +71,19 @@ public class FunctionInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+    }
+
+    private void checkFunctionStatus(PFunction function) {
+        while (function != null) {
+            switch (FunctionStatusEnum.getByValue(function.getStatus())) {
+                case DISABLED:
+                    throw new SystemException(ResponseCode.SYSTEM_ERROR, "该功能已被禁用");
+                case ENABLED:
+                    break;
+                case MAINTAINED:
+                    throw new SystemException(ResponseCode.SYSTEM_ERROR, "该功能正在维护中,请稍后再试");
+            }
+            function = function.getParent();
+        }
     }
 }

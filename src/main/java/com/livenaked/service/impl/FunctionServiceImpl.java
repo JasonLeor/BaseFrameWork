@@ -37,17 +37,17 @@ public class FunctionServiceImpl implements FunctionServiceIntf {
     @Override
     public FunctionStatusEnum getFunctionStatus(String route) throws SystemException {
         PFunction pFunction = findFunction(route);
-        while (pFunction != null && pFunction.getParentId() != null) {
+        while (pFunction != null && pFunction.getParent() != null) {
             FunctionStatusEnum status = FunctionStatusEnum.getByValue(pFunction.getStatus());
             if (!status.equals(FunctionStatusEnum.ENABLED)) {
                 return status;
             }
 
-            pFunction = functionDao.findValidFunction(pFunction.getParentId());
+            pFunction = pFunction.getParent();
         }
 
         if (pFunction != null) {
-            if (pFunction.getParentId() != null) {
+            if (pFunction.getParent() != null) {
             }
             return FunctionStatusEnum.getByValue(pFunction.getStatus());
         } else {

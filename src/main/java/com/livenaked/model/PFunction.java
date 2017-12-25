@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -20,8 +17,9 @@ public class PFunction extends BaseModel {
     @Id
     @Column(name = "id")
     private Long id;
-    @Column(name = "parent_id")
-    private Long parentId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_id")
+    private PFunction parent;
     @Column(name = "function_name")
     private String functionName;
     @Column(name = "route")
@@ -32,4 +30,5 @@ public class PFunction extends BaseModel {
     private Integer status;
     @Column(name = "is_valid")
     private Integer isValid;
+
 }

@@ -20,8 +20,9 @@ public class PUserRole extends BaseModel {
     private Long id;
     @Column(name = "user_id")
     private Long userId;
-    @Column(name = "role_id")
-    private Long roleId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private PRole role;
     @Column(name = "is_valid")
     private Integer isValid;
 }
