@@ -15,7 +15,7 @@ public class UserFunctionServiceImpl implements UserFunctionServiceIntf {
     private UserFunctionDaoIntf userFunctionDaoIntf;
 
     @Override
-    public boolean hasFunction(Long userId, Long functionId) {
+    public boolean hasFunction(String userId, Long functionId) {
         List<PUserFunction> userFunctions = userFunctionDaoIntf.findByUserIdAndFunctionId(userId, functionId);
         return !Utils.isEmptyByCollection(userFunctions);
     }

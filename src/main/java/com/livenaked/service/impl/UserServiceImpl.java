@@ -26,15 +26,20 @@ public class UserServiceImpl implements UserServiceIntf {
 
     @Override
     public PUser getUser(String token) {
-        return new PUser(1L);
+        return new PUser("1");
     }
 
     @Override
     public PUser getCurrentLoginUser() {
         String token = httpServletRequest.getParameter(Constants.USER_LOGIN_TOKEN_FIELD);
         if (!Utils.isEmpty(token)) {
-            PUser user = userDao.findUser(token);
+            PUser user = userDao.findUserByToken(token);
         }
-        return new PUser(1L);
+        return new PUser("1");
+    }
+
+    @Override
+    public PUser findUser(String userId) {
+        return userDao.findUserByUserId(userId);
     }
 }

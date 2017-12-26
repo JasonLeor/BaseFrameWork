@@ -3,8 +3,10 @@ package com.livenaked.common.http.intercept;
 import com.livenaked.common.ResponseCode;
 import com.livenaked.common.exception.ServiceException;
 import com.livenaked.common.tools.Utils;
+import com.livenaked.service.intf.UserServiceIntf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +25,8 @@ import java.util.Map;
  */
 @Component
 public class SignCheckInterceptor implements HandlerInterceptor {
+    @Autowired
+    private UserServiceIntf userService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final String SIGN_PARAM_FIELD = "sign";
 
@@ -34,7 +38,13 @@ public class SignCheckInterceptor implements HandlerInterceptor {
             throw new ServiceException(ResponseCode.PARAMETER_ERROR);
         }
         Map<String, String> params = getParams(request);
-        String serverSign = Utils.generateSign(params, "");
+        String secretKey = "";
+//        用户秘钥验签
+//        PUser currentLoginUser = userService.getCurrentLoginUser();
+//        if (currentLoginUser != null && !Utils.isEmpty(currentLoginUser.getSecretKey())) {
+//            secretKey = currentLoginUser.getSecretKey();
+//        }
+        String serverSign = Utils.generateSign(params, secretKey);
         if (!serverSign.equals(clientSign)) {
             throw new ServiceException(ResponseCode.SIGN_INVALID);
         }

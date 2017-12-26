@@ -29,4 +29,9 @@ public class BaseDaoImpl<T, ID extends Serializable> extends SimpleJpaRepository
         super(entityInformation, entityManager);
         this.em = entityManager;
     }
+
+    @Override
+    public T findOne(ID id) {
+        return super.findOne(id);
+    }
 }

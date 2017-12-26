@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface UserFunctionDaoIntf extends BaseDao<PUserFunction, Long> {
-    List<PUserFunction> findByUserIdAndFunctionId(Long userId, Long functionId);
+    List<PUserFunction> findByUserIdAndFunctionId(String userId, Long functionId);
 }

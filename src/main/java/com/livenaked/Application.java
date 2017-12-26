@@ -14,9 +14,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         repositoryImplementationPostfix = "Impl",
         repositoryFactoryBeanClass = BaseDaoFactoryBean.class,
         repositoryBaseClass = BaseDaoImpl.class)
-public class BulaApplication {
+public class Application {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(BulaApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
     }
 }

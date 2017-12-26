@@ -4,11 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,8 +18,10 @@ import java.time.LocalDateTime;
 @Table(name = "user")
 public class PUser extends BaseModel implements Serializable {
     @Id
+    @GeneratedValue(generator = "system-uuid", strategy = GenerationType.AUTO)
+    @GenericGenerator(strategy = "uuid", name = "system-uuid")
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
     @Column(name = "user_name")
     private String userName;
     @Column(name = "gender")
@@ -34,6 +34,8 @@ public class PUser extends BaseModel implements Serializable {
     private String lang;
     @Column(name = "refer_code")
     private String referCode;
+    @Column(name = "secret_key")
+    private String secretKey;
     @Column(name = "is_valid")
     private Integer isValid;
     @Column(name = "is_disabled")
@@ -41,7 +43,7 @@ public class PUser extends BaseModel implements Serializable {
     @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
 
-    public PUser(Long userId) {
+    public PUser(String userId) {
         this.userId = userId;
     }
 

@@ -1,5 +1,6 @@
 package com.livenaked.common.http.converter;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import org.springframework.http.HttpOutputMessage;
@@ -17,6 +18,9 @@ public class JsonConvert extends FastJsonHttpMessageConverter4 {
 
     public JsonConvert() {
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setSerializerFeatures(
+                SerializerFeature.PrettyFormat,
+                SerializerFeature.WriteMapNullValue);
         setFastJsonConfig(fastJsonConfig);
         List<MediaType> supportedMediaTypes = new ArrayList<>();
         supportedMediaTypes.add(MediaType.APPLICATION_JSON);

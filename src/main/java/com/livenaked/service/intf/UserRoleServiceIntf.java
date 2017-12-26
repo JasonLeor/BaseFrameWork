@@ -7,5 +7,5 @@ public interface UserRoleServiceIntf {
      * @param userId     用户id
      * @param functionId 权限 id
      */
-    boolean hasFunction(Long userId, Long functionId);
+    boolean hasFunction(String userId, Long functionId);
 }

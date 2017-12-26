@@ -7,6 +7,7 @@ import com.livenaked.common.http.intercept.FunctionInterceptor;
 import com.livenaked.common.http.intercept.LoginInterceptor;
 import com.livenaked.common.http.intercept.SignCheckInterceptor;
 import com.livenaked.common.http.intercept.TimeOutCheckInterceptor;
+import com.livenaked.common.tools.EnvUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,10 +44,12 @@ public class RequestHandler extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 时间校验
-        registry.addInterceptor(timeOutCheckInterceptor).addPathPatterns("/*");
-        // 签名校验
-        registry.addInterceptor(signTrueInterceptor).addPathPatterns("/*");
+        if (!EnvUtils.CURRENT_ENVIRONMENT.equals(EnvUtils.ENVIRONMENT.TEST)) {
+            // 时间校验
+            registry.addInterceptor(timeOutCheckInterceptor).addPathPatterns("/**");
+            // 签名校验
+            registry.addInterceptor(signTrueInterceptor).addPathPatterns("/**");
+        }
         // 用户登录状态
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**/user/**");
         // 功能权限检查

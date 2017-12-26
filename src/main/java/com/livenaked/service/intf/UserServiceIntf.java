@@ -19,4 +19,11 @@ public interface UserServiceIntf {
      * 获取当前登录 的 用户
      */
     PUser getCurrentLoginUser();
+
+    /**
+     * 查询用户
+     *
+     * @param userId 用户id
+     */
+    PUser findUser(String userId);
 }

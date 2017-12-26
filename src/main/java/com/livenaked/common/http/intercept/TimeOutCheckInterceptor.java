@@ -28,7 +28,7 @@ public class TimeOutCheckInterceptor implements HandlerInterceptor {
         try {
             requestTime = Long.valueOf(request.getParameter(TIMEOUT_PARAM_FIELD));
         } catch (Exception e) {
-            throw new ServiceException(ResponseCode.PARAMETER_ERROR);
+            throw new ServiceException(ResponseCode.PARAMETER_ERROR, TIMEOUT_PARAM_FIELD + "不能为空");
         }
 
         Long serverTime = Utils.getTimestamp(UNIT);

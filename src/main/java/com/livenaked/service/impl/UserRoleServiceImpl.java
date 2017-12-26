@@ -22,7 +22,7 @@ public class UserRoleServiceImpl implements UserRoleServiceIntf {
     private RoleFunctionDaoIntf roleFunctionDao;
 
     @Override
-    public boolean hasFunction(Long userId, Long functionId) {
+    public boolean hasFunction(String userId, Long functionId) {
         List<PUserRole> userRoles = userRoleDaoIntf.findByUser(userId);
         if (!Utils.isEmptyByCollection(userRoles)) {
             List<PRoleFunction> functions = roleFunctionDao.findByFunctionIdAndRoleIdIn(functionId, userRoles.stream().map(pUserRole -> pUserRole.getRole().getId()).collect(Collectors.toList()));

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface UserRoleDaoIntf extends BaseDao<PUserRole, Long> {
     @Query(value = "select ur from PUserRole ur where ur.isValid =1 and ur.role.isValid =1 and ur.userId =?1")
-    List<PUserRole> findByUser(Long userId);
+    List<PUserRole> findByUser(String userId);
 }
