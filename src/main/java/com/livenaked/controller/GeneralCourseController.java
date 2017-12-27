@@ -1,35 +1,30 @@
 package com.livenaked.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 课程 接口
+ * 课程接口
  */
 @RestController
 @RequestMapping("/general/course")
 public class GeneralCourseController {
-
     /**
-     * 获取课程列表
+     * 课程列表
      */
-    public void getCourses() {
+    @RequestMapping(value = "courseList", method = RequestMethod.GET)
+    private String courseList() {
 
+        return "123131232";
     }
 
     /**
-     * 获取课程详情
+     * 课程详细信息
      */
-    public void getCourseDetail() {
+    @RequestMapping(value = "courseDetail", method = RequestMethod.GET)
+    private void courseDetail(String id) {
 
     }
-
-    /**
-     * 获取热门课程
-     */
-    public void getHotCourses() {
-
-    }
-
 
 }

@@ -21,6 +21,9 @@ public class Constants {
      * response忽略处理标记
      */
     public static final Class<? extends Annotation> IGNORE_MARK_ANNOTATION = IgnoreMark.class;
-
+    /**
+     * user token
+     */
     public static final String USER_LOGIN_TOKEN_FIELD = "token";
+    public static final String[] JSONP_CALLBACK_FIELDS = new String[]{"callback", "jsonp"};
 }

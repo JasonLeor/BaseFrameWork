@@ -29,6 +29,7 @@ public class LogTraceFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         // 插入日志追踪主键
         MDC.put(Constants.LOG_TRACE_PK_KEY, Utils.generateUUID());
+
         chain.doFilter(request, response);
     }
 

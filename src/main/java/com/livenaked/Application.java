@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @EnableJpaRepositories(basePackages = "com.livenaked.dao",
-        repositoryImplementationPostfix = "Impl",
         repositoryFactoryBeanClass = BaseDaoFactoryBean.class,
         repositoryBaseClass = BaseDaoImpl.class)
 public class Application {

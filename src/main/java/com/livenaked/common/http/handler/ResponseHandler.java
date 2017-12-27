@@ -4,8 +4,8 @@ import com.livenaked.common.Constants;
 import com.livenaked.common.ResponseCode;
 import com.livenaked.common.http.Response;
 import org.slf4j.MDC;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * 响应控制器
  */
-@Configuration
+@Order(1)
 @RestControllerAdvice
 public class ResponseHandler implements ResponseBodyAdvice<Object> {
     @Override

@@ -1,7 +1,7 @@
 package com.livenaked.common.http.handler;
 
-import com.livenaked.common.http.converter.JsonConvert;
-import com.livenaked.common.http.converter.StringConvert;
+import com.livenaked.common.http.converter.JsonConverter;
+import com.livenaked.common.http.converter.StringConverter;
 import com.livenaked.common.http.converter.XmlConverter;
 import com.livenaked.common.http.intercept.FunctionInterceptor;
 import com.livenaked.common.http.intercept.LoginInterceptor;
@@ -32,11 +32,11 @@ public class RequestHandler extends WebMvcConfigurerAdapter {
     @Autowired
     private LoginInterceptor loginInterceptor;
     @Autowired
-    private JsonConvert jsonConvert;
+    private JsonConverter jsonConvert;
     @Autowired
     private XmlConverter xmlConverter;
     @Autowired
-    private StringConvert stringConvert;
+    private StringConverter stringConvert;
 
 
     /**
@@ -54,12 +54,15 @@ public class RequestHandler extends WebMvcConfigurerAdapter {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**/user/**");
         // 功能权限检查
         registry.addInterceptor(functionInterceptor).addPathPatterns("/**");
+
     }
 
+    // 优先级按此顺序
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(jsonConvert);
         converters.add(xmlConverter);
         converters.add(stringConvert);
     }
+
 }
