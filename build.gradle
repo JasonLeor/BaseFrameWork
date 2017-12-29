@@ -26,6 +26,7 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework:spring-context-support')
 //    compile('org.springframework.boot:spring-boot-starter-security')
 //    compile('org.springframework.security.oauth:spring-security-oauth2')
     compile('org.hibernate:hibernate-java8:5.0.12.Final')
@@ -36,6 +37,8 @@ dependencies {
     compile('com.alibaba:fastjson:1.2.29')//Json工具
     compile('com.alibaba:druid:1.0.25')//连接池
 
+    compile('org.quartz-scheduler:quartz:2.2.1') // 任务调度
+    compile('org.quartz-scheduler:quartz-jobs:2.2.1')
 
     runtime('mysql:mysql-connector-java:5.1.20')
     testCompile('org.springframework.boot:spring-boot-starter-test')

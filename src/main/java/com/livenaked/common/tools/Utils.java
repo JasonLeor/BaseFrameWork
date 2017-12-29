@@ -231,6 +231,13 @@ public class Utils {
     }
 
     /**
+     * 时间转 cron 表达式
+     */
+    public static String getCron(LocalDateTime dateTime) {
+        return getTime(dateTime, "ss mm HH dd MM ? yyyy");
+    }
+
+    /**
      * 随机 数字
      *
      * @param length 随机数长度
